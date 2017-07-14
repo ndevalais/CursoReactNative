@@ -47,8 +47,9 @@ export default class ArtistList extends Component {
         renderRow={(artist) => {
           return(
           // Eliminio la navegcion al detalle del artista *******************************
-          //<TouchableOpacity onPress={() => this.handlePress(artist)}></TouchableOpacity>
+          <TouchableOpacity onPress={() => this.handlePress(artist)}>
           <ArtistBox artist={artist} />
+          </TouchableOpacity>
             
           )}}
       />
