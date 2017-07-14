@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   View,
+  Text,
   TextInput,
   TouchableOpacity,
 } from 'react-native';
@@ -23,6 +24,7 @@ export default class ArtistDetailView extends Component {
     const artistCommentsRef = this.getArtistCommentsRef()
     var newCommentRef = artistCommentsRef.push()
     newCommentRef.set({ text });
+    this.setState({ text: '' })
     //console.warn('enviar', newCommentRef) //this.state.text)
   }
 
@@ -47,7 +49,7 @@ export default class ArtistDetailView extends Component {
   componentWillUnmount() {
     this.getArtistCommentsRef().off('child_added', this.addComment)
   }
-  
+
   render() {
     const artist = this.props.artist
     const { comments } = this.state
@@ -56,10 +58,12 @@ export default class ArtistDetailView extends Component {
       
       <View style={styles.container}>
         <ArtistBox artist={artist} />
+        <Text style={styles.header}>Comentarios</Text>
         <CommentList comments={comments} />
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
+            value={this.state.text}
             placeholder="Opina sobre este artista"
             onChangeText={this.handleChangeText}
           />
@@ -78,11 +82,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgray',
     paddingTop: 70,
   },
+  header: {
+    fontSize: 20,
+    paddingHorizontal: 15,
+    marginVertical: 10
+  },
   inputContainer:{
-    position: 'absolute',
+    /*position: 'absolute',
     bottom: 0,
     right: 0,
-    left: 0,
+    left: 0,*/
     height: 70,
     backgroundColor: 'white',
     paddingHorizontal: 10,
