@@ -11,9 +11,13 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import ArtistBox from './artistBox'
 import { getArtists } from './apis-client'
 import { firebaseAuth, firebaseDatabase } from './firebase'
- 
+import CommentList from './CommentList'
+
 export default class ArtistDetailView extends Component {
-  
+  state = {
+    comments: []
+  }
+
   handleSend = () => {
     const { text } = this.state
     const artistCommentsRef = this.getArtistCommentsRef()
@@ -29,12 +33,30 @@ export default class ArtistDetailView extends Component {
 
   handleChangeText = (text) => this.setState({text})
 
+  componentDidMount() {
+    this.getArtistCommentsRef().on('child_added', this.addComment)
+  }
+
+  addComment = (data) => {
+    const comment = data.val()
+    this.setState({
+      comments: this.state.comments.concat(comment)
+    })
+  }
+
+  componentWillUnmount() {
+    this.getArtistCommentsRef().off('child_added', this.addComment)
+  }
+  
   render() {
     const artist = this.props.artist
+    const { comments } = this.state
+
     return (
       
       <View style={styles.container}>
         <ArtistBox artist={artist} />
+        <CommentList comments={comments} />
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
