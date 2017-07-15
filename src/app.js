@@ -21,7 +21,7 @@ class PlatziMusic extends React.Component {
       <Scene key="login" component={LoginView} hideNavBar/>
       <Scene key="root">
         <Scene key="home" component={HomeView} hideNavBar/>
-        <Scene key="artistDetail" component={artistDetailView} hideNavBar={false} title="Artista"/>
+        <Scene key="artistDetail" component={artistDetailView} hideNavBar={false} title="Comentarios"/>
       </Scene>
     </Router>
   }

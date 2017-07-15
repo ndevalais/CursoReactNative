@@ -9,7 +9,8 @@ import {
   StyleSheet,
   View,
   Text,
-  Button
+  Button,
+  Image,
 } from 'react-native';
 
 import FBSDK, {
@@ -18,11 +19,9 @@ import FBSDK, {
 } from 'react-native-fbsdk'
 
 import { Actions } from 'react-native-router-flux'
-
 import firebase, { firebaseAuth } from "./firebase";
 
 const { FacebookAuthProvider } = firebase.auth;
-
 
 export default class LoginView extends Component {
   state = {
@@ -47,7 +46,9 @@ export default class LoginView extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <Image source={require('./background2.jpg')} style={styles.container}>
+        <Image source={require('./logo2.png')} style={styles.logo} />
+        
         <Text style={styles.welcome}>Bienvenidos a PlatziMusic</Text>
         <Text style={styles.welcome}>
           {this.state.credentials && this.state.credentials.displayName}
@@ -57,7 +58,7 @@ export default class LoginView extends Component {
           readPermissions={['public_profile', 'email']}
           onLoginFinished={ this.handleLoginFinished }
           onLogoutFinished={() => alert("logout.")}/>
-      </View>
+      </Image>
     );
   }
 
@@ -90,6 +91,11 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 20,
     backgroundColor: 'transparent',
-    color: 'black',
+    color: 'white',
+  },
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 15
   }
 });
